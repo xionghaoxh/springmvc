@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 自动扫描包，让指定包下的注解生效,由IOC容器统一管理  让Spring MVC不处理-->
+    <context:component-scan base-package="com.xh.controller"/>
+    <!--  静态资源  比如 .html .m3 .m4-->
+    <mvc:default-servlet-handler/>
+    <!--   支持mvc注解驱动
+    在spring中一般采用@RequestMapping注解来完成映射关系
+    要想使@RequestMapping注解生效
+    必须向上下文中注册DefaultAnnotationHandlerMapping
+    和一个AnnotationMethodHandlerAdapter实例
+    这两个实例分别在类级别和方法级别处理。
+    而annotation-driven配置帮助我们自动完成上述两个实例的注入。    -->
+    <mvc:annotation-driven/>
+    <!--    视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
+        <!--        前缀-->
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <!--         后缀-->
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+</beans>
+<!--总结： 如果srpingmvc用注解来开发，那么我们还是原来-->
+<!--        1:web.xml  不变-->
+<!--        2： springmvc-servlet.xml  除了视图解析器，还有匹配前缀和后缀，另外的映射器和适配器就不要了-->
+<!--            2.1：<context:component-scan base-package="com.xh.controller"/>-->
+        <!--         静态资源  比如 .html .m3 .m4&ndash;&gt;-->
+        <!--        <mvc:default-servlet-handler/>-->
+        <!--        支持mvc注解驱动-->
+        <!--        在spring中一般采用@RequestMapping注解来完成映射关系-->
+        <!--        要想使@RequestMapping注解生效-->
+        <!--        必须向上下文中注册DefaultAnnotationHandlerMapping-->
+        <!--        和一个AnnotationMethodHandlerAdapter实例-->
+        <!--        这两个实例分别在类级别和方法级别处理。-->
+        <!--        而annotation-driven配置帮助我们自动完成上述两个实例的注入。    &ndash;&gt;-->
+        <!--         <mvc:annotation-driven/>-->
